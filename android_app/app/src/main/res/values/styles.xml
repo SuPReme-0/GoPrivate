@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Splash Screen Theme (Android 12+ SplashScreen API Compatible) -->
+    <style name="Theme.GoPrivate.Splash" parent="Theme.SplashScreen">
+        <!-- Background for pre-Android 12 -->
+        <item name="android:windowBackground">@drawable/bg_splash_simple</item>
+
+        <!-- SplashScreen API icon (Android 12+) -->
+        <item name="windowSplashScreenBackground">@color/cyber_bg_deep</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+
+        <!-- Post-splash theme (what the app uses after splash) -->
+        <item name="postSplashScreenTheme">@style/Theme.GoPrivate.CyberTerminal</item>
+
+        <!-- Status/Navigation bar colors -->
+        <item name="android:statusBarColor">@color/cyber_bg_deep</item>
+        <item name="android:navigationBarColor">@color/cyber_bg_deep</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="TextAppearance.GoPrivate.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- Fallback for pre-Android 12 (if not using SplashScreen API) -->
+    <style name="Theme.GoPrivate.Splash.Legacy" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash_simple</item>
+        <item name="android:statusBarColor">@color/cyber_bg_deep</item>
+        <item name="android:navigationBarColor">@color/cyber_bg_deep</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <!-- Base Cyber Terminal Theme -->
+    <style name="Theme.GoPrivate.CyberTerminal" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/neon_cyan_primary</item>
+        <item name="colorPrimaryVariant">@color/neon_cyan_glow</item>
+        <item name="colorOnPrimary">@color/cyber_bg_deep</item>
+        <item name="colorSecondary">@color/neon_green_primary</item>
+        <item name="colorSecondaryVariant">@color/neon_green_glow</item>
+        <item name="colorOnSecondary">@color/cyber_bg_deep</item>
+        <item name="android:colorBackground">@color/cyber_bg_terminal</item>
+        <item name="colorSurface">@color/cyber_surface_glass</item>
+        <item name="colorOnSurface">@color/terminal_text_primary</item>
+        <item name="android:windowBackground">@drawable/bg_cyber_terminal</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!-- Light Theme Variant -->
+    <style name="Theme.GoPrivate.CyberTerminal.Light" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/neon_cyan_primary_light</item>
+        <item name="colorPrimaryVariant">@color/neon_cyan_glow</item>
+        <item name="colorOnPrimary">@color/cyber_bg_light</item>
+        <item name="colorSecondary">@color/neon_green_primary_light</item>
+        <item name="colorSecondaryVariant">@color/neon_green_glow</item>
+        <item name="colorOnSecondary">@color/cyber_bg_light</item>
+        <item name="android:colorBackground">@color/cyber_bg_light</item>
+        <item name="colorSurface">@color/cyber_surface_light</item>
+        <item name="colorOnSurface">@color/terminal_text_primary_light</item>
+        <item name="android:windowBackground">@drawable/bg_cyber_terminal_light</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <!-- Cyber Terminal Card Style -->
+    <style name="Widget.GoPrivate.CyberCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/cyber_card_glass</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="strokeColor">@color/hologram_border</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="contentPadding">16dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Terminal Text Style -->
+    <style name="Widget.GoPrivate.TerminalText" parent="Widget.Material3.TextView">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/terminal_text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+    </style>
+
+    <!-- Terminal Header Style -->
+    <style name="Widget.GoPrivate.TerminalHeader" parent="Widget.GoPrivate.TerminalText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/neon_cyan_primary</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <!-- Glowing Button Style -->
+    <style name="Widget.GoPrivate.GlowButton" parent="Widget.Material3.Button">
+        <item name="android:background">@drawable/btn_cyber_glow</item>
+        <item name="android:textColor">@color/cyber_bg_deep</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:stateListAnimator">@animator/btn_glow_animator</item>
+    </style>
+
+    <!-- Animated Scan Line Overlay -->
+    <style name="Widget.GoPrivate.ScanLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@drawable/scan_line_animated</item>
+        <item name="android:alpha">0.3</item>
+    </style>
+
+    <!-- Holographic Card Style -->
+    <style name="Widget.GoPrivate.HolographicCard" parent="Widget.GoPrivate.CyberCard">
+        <item name="cardBackgroundColor">@color/cyber_card_glass</item>
+        <item name="strokeColor">@color/hologram_border</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardElevation">12dp</item>
+        <item name="contentPadding">20dp</item>
+    </style>
+
+    <style name="Widget.GoPrivate" parent="android:Widget" />
+    <style name="Widget.GoPrivate.TextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">monospace</item>
+    </style>
+
+    <style name="Widget.Material3.TextView" parent="android:Widget.TextView" />
+</resources>

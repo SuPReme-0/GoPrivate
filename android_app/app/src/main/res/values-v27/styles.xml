@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GoPrivate.Splash" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_binary_matrix</item>
+        <item name="android:statusBarColor">@color/cyber_bg_deep</item>
+        <item name="android:navigationBarColor">@color/cyber_bg_deep</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="Theme.GoPrivate.Splash.Legacy" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash_simple</item>
+        <item name="android:statusBarColor">@color/cyber_bg_deep</item>
+        <item name="android:navigationBarColor">@color/cyber_bg_deep</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

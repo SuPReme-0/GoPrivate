@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cyber_bg_deep">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="#050508" />
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="140dp"
+        android:layout_height="135dp"
+        android:contentDescription="GoPrivate Shield"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <com.goprivate.app.ui.views.GlitchTextView
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.1"
+        android:text="G O _ P R I V A T E"
+        android:textColor="@color/neon_cyan_primary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:glitchEnabled="true"
+        app:glitchIntensity="low"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_logo" />
+
+    <com.goprivate.app.ui.views.TerminalTextView
+        android:id="@+id/boot_sequence_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="monospace"
+        android:gravity="start"
+        android:lineSpacingExtra="6dp"
+        android:text="> INITIALIZING KERNEL...\n> RE-EVALUATING ML WEIGHTS...\n> ESTABLISHING SECURE TUNNEL..."
+        android:textColor="@color/terminal_text_secondary"
+        android:textSize="12sp"
+        app:cursorColor="@color/terminal_cursor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_title"
+        app:typewriterEnabled="true" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/boot_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="32dp"
+        android:indeterminate="true"
+        app:indicatorColor="@color/neon_green_primary"
+        app:trackColor="@color/cyber_card_glass"
+        app:trackCornerRadius="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/boot_sequence_text" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/enter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="monospace"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="12dp"
+        android:text="[ LAUNCH SYSTEM ]"
+        android:textColor="@color/cyber_bg_deep"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/neon_cyan_primary"
+        app:cornerRadius="4dp"
+        app:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

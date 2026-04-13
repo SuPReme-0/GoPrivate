@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GlitchTextView Attributes -->
+    <declare-styleable name="GlitchTextView">
+        <attr name="glitchEnabled" format="boolean" />
+        <attr name="glitchIntensity" format="enum">
+            <enum name="low" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="high" value="2" />
+        </attr>
+        <attr name="glitchColor" format="color" />
+        <attr name="glitchSpeed" format="integer" />
+    </declare-styleable>
+
+    <!-- TerminalTextView Attributes -->
+    <declare-styleable name="TerminalTextView">
+        <attr name="typewriterEnabled" format="boolean" />
+        <attr name="typewriterSpeed" format="enum">
+            <enum name="slow" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="fast" value="2" />
+        </attr>
+        <attr name="cursorColor" format="color" />
+        <attr name="cursorBlinkRate" format="integer" />
+        <attr name="maxLines" format="integer" />
+    </declare-styleable>
+
+    <!-- CyberRadarView Attributes -->
+    <declare-styleable name="CyberRadarView">
+        <attr name="radarStyle" format="enum">
+            <enum name="classic" value="0" />
+            <enum name="cyber" value="1" />
+            <enum name="hologram" value="2" />
+        </attr>
+        <attr name="particleCount" format="integer" />
+        <attr name="glowEnabled" format="boolean" />
+        <attr name="scanSpeed" format="float" />
+        <attr name="particleSpeed" format="float" />
+    </declare-styleable>
+
+    <!-- HolographicCard Attributes -->
+    <declare-styleable name="HolographicCard">
+        <attr name="hologramIntensity" format="integer">
+            <enum name="low" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="high" value="2" />
+        </attr>
+        <attr name="glowColor" format="color" />
+        <attr name="blurRadius" format="dimension" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderGlow" format="boolean" />
+    </declare-styleable>
+
+    <!-- ScanLineView Attributes -->
+    <declare-styleable name="ScanLineView">
+        <attr name="scanDirection" format="enum">
+            <enum name="vertical" value="0" />
+            <enum name="horizontal" value="1" />
+        </attr>
+        <attr name="scanColor" format="color" />
+        <attr name="scanGlow" format="boolean" />
+    </declare-styleable>
+</resources>

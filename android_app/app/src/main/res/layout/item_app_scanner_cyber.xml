@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/cyber_card_glass"
+    app:cardCornerRadius="6dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#222222">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="16dp"
+        android:paddingVertical="12dp">
+
+        <View
+            android:id="@+id/risk_indicator"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@color/terminal_text_dim"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/right_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="scan_button,risk_score" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:singleLine="true"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/risk_indicator"
+            app:layout_constraintEnd_toStartOf="@id/right_barrier"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Google Chrome" />
+
+        <TextView
+            android:id="@+id/package_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/terminal_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:singleLine="true"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="@id/app_name"
+            app:layout_constraintEnd_toEndOf="@id/app_name"
+            app:layout_constraintTop_toBottomOf="@id/app_name"
+            tools:text="com.android.chrome" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/item_scan_progress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/neon_cyan_primary"
+            app:trackColor="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/package_name"
+            app:layout_constraintStart_toStartOf="@id/app_name"
+            app:layout_constraintEnd_toEndOf="@id/app_name" />
+
+        <TextView
+            android:id="@+id/scan_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/neon_cyan_primary"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/app_name"
+            app:layout_constraintEnd_toEndOf="@id/app_name"
+            app:layout_constraintTop_toBottomOf="@id/item_scan_progress"
+            tools:text="[ AUDITING BINARY... ]" />
+
+        <com.goprivate.app.ui.views.GlitchTextView
+            android:id="@+id/risk_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:visibility="gone"
+            app:glitchEnabled="true"
+            app:glitchIntensity="low"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="98%" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scan_button"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="SCAN"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:textColor="@color/neon_cyan_primary"
+            app:backgroundTint="#0A0A0A"
+            app:strokeColor="@color/neon_cyan_primary"
+            app:strokeWidth="1dp"
+            app:cornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

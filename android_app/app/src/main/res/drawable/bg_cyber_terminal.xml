@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Deep space background gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#000510"
+                android:centerColor="#0A0F1E"
+                android:endColor="#1A1F35"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Subtle grid overlay -->
+    <item android:drawable="@drawable/grid_pattern"/>
+    <!-- Very subtle noise texture -->
+    <item android:drawable="@drawable/noise_texture" />
+
+    <!-- Vignette effect for depth -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:startColor="#00000000"
+                android:centerColor="#00000000"
+                android:endColor="#80000000"
+                android:type="radial"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:gradientRadius="150%p" />
+        </shape>
+    </item>
+</layer-list>

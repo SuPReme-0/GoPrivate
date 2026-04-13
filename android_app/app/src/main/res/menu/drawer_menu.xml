@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/side_nav_dashboard"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="System" />
+
+        <item
+            android:id="@+id/side_nav_firewall"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Threat Logs" />
+
+        <item
+            android:id="@+id/side_nav_app_auditor"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Secure Apps" />
+
+        <item
+            android:id="@+id/side_nav_settings"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="Terminal Settings" />
+    </group>
+
+    <item android:title="System Actions">
+        <menu>
+            <item
+                android:id="@+id/side_nav_purge"
+                android:icon="@android:drawable/ic_menu_delete"
+                android:title="Purge Threats" />
+            <item
+                android:id="@+id/side_nav_kill_switch"
+                android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                android:title="Network Kill" />
+        </menu>
+    </item>
+</menu>

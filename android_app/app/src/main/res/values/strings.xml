@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Info -->
+    <string name="app_name">GoPrivate</string>
+    <string name="shield_status">Shield Status</string>
+
+    <!-- Dashboard Labels -->
+    <string name="label_apps_scanned">Apps Scanned</string>
+    <string name="label_threats_blocked">Threats Blocked</string>
+    <string name="label_network_protected">Network Protected</string>
+    <string name="label_battery_saved">Battery Saved</string>
+
+
+    <!-- Section Titles -->
+    <string name="title_network_activity">Network Activity</string>
+    <string name="title_recent_threats">Recent Threats</string>
+    <string name="title_app_scanner">App Scanner</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_terminal_log">System Log</string>
+
+    <!-- Descriptions (Accessibility) -->
+    <string name="desc_network_graph">Real-time network packet visualization</string>
+    <string name="desc_threat_radar">Animated threat detection radar</string>
+    <string name="desc_app_list">List of installed apps with risk scores</string>
+    <string name="desc_threat_icon">Threat indicator</string>
+    <string name="desc_scan_button">Initiate security scan</string>
+
+    <!-- Actions -->
+    <string name="action_scan_now">Scan Now</string>
+    <string name="action_uninstall">Uninstall</string>
+    <string name="action_whitelist">Whitelist</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+
+    <!-- Messages -->
+    <string name="msg_vpn_active">GoPrivate Shield Active</string>
+    <string name="msg_vpn_inactive">Shield Inactive</string>
+    <string name="msg_threat_detected">🚨 Threat Detected: %1$s</string>
+    <string name="msg_scan_complete">Scan Complete: %d apps analyzed</string>
+    <string name="msg_no_threats">No threats detected</string>
+    <string name="msg_scanning">Scanning…</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Dashboard</string>
+    <string name="nav_scanner">App Scanner</string>
+    <string name="nav_history">Threat Log</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="setting_theme">Theme</string>
+    <string name="setting_theme_dark">Cyber Dark</string>
+    <string name="setting_theme_light">Minimal Light</string>
+    <string name="setting_theme_system">System Default</string>
+    <string name="setting_threshold">Detection Threshold</string>
+    <string name="setting_threshold_lenient">Lenient</string>
+    <string name="setting_threshold_balanced">Balanced</string>
+    <string name="setting_threshold_paranoid">Paranoid</string>
+    <string name="setting_whitelist">Whitelisted Apps</string>
+    <string name="setting_purge_data">Clear History</string>
+    <string name="setting_privacy">Privacy Controls</string>
+
+    <!-- Terminal Output -->
+    <string name="terminal_welcome">> GO_PRIVATE_TERMINAL_v2.1\n> Initializing cyber guardian…\n> System online.</string>
+    <string name="terminal_threat_log">[!] BLOCKING_CONNECTION: %1$s\n[!] Risk Score: %2$d%%\n[!] Action: Packet dropped.</string>
+
+    <!-- Plurals -->
+    <plurals name="plural_apps_scanned">
+        <item quantity="one">%d app scanned</item>
+        <item quantity="other">%d apps scanned</item>
+    </plurals>
+    <plurals name="plural_threats_blocked">
+        <item quantity="one">%d threat blocked</item>
+        <item quantity="other">%d threats blocked</item>
+    </plurals>
+    <plurals name="plural_minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="plural_hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <string name="format_mb">%1$d MB</string>
+    <string name="format_percent">%1$d%%</string>
+    <!-- App Info -->
+    <string name="app_version">v2.1.0</string>
+    <!-- Splash Screen Strings -->
+    <string name="splash_tagline">Protection Active</string>
+    <string name="action_enter">Go Private</string>
+
+    <!-- Section Titles -->
+    <string name="title_system_log">System Log</string>
+    <string name="title_app_auditor">App Auditor</string>
+    <string name="title_threat_archive">Threat Archive</string>
+    <string name="title_system_config">System Config</string>
+
+    <!-- Descriptions (Accessibility) -->
+    <string name="desc_risk_indicator">Risk level indicator</string>
+    <string name="desc_permission_icon">Permission icon</string>
+
+    <!-- Actions -->
+    <string name="action_clear_history">Clear History</string>
+    <string name="action_filter_all">All</string>
+    <string name="action_filter_malicious">Malicious</string>
+    <string name="action_filter_suspicious">Suspicious</string>
+
+    <!-- Messages -->
+    <string name="msg_system_operating">System operating normally</string>
+    <string name="msg_no_threats_detected">No threats detected yet</string>
+
+    <!-- Settings -->
+    <string name="setting_telemetry">Enable Anonymous Telemetry</string>
+    <string name="setting_telemetry_desc">Help improve GoPrivate by sending anonymous usage data. No personal information is collected.</string>
+    <string name="setting_data_management">Data Management</string>
+    <string name="setting_notifications">Notification Permissions</string>
+    <string name="setting_file_access">File Access Permissions</string>
+    <string name="setting_vpn_mode">VPN Mode</string>
+    <string name="setting_vpn_mode_auto">Auto</string>
+    <string name="setting_vpn_mode_always">Always On</string>
+    <string name="setting_vpn_mode_manual">Manual</string>
+
+    <!-- Terminal Output -->
+    <string name="terminal_system_log">> SYSTEM_LOG</string>
+    <string name="terminal_app_auditor">> APP_AUDITOR_v2.1</string>
+    <string name="terminal_threat_archive">> THREAT_ARCHIVE_v2.1</string>
+    <string name="terminal_system_config">> SYSTEM_CONFIG_v2.1</string>
+
+    <!-- Scanner -->
+    <string name="scanner_filter_hint">Filter apps…</string>
+    <string name="scanner_ready_to_scan">Ready to Scan</string>
+    <string name="scanner_scan_all">Scan All Apps</string>
+    <string name="scanner_refresh">Refresh</string>
+    <string name="scanner_risk_score">Risk Score:</string>
+    <string name="scanner_permissions">Permissions:</string>
+    <string name="scanner_uninstall">Uninstall</string>
+    <string name="scanner_whitelist">Whitelist</string>
+    <string name="scanner_tap_to_scan">Tap to scan</string>
+    <string name="scanner_safe">Safe</string>
+    <string name="scanner_suspicious">Suspicious</string>
+    <string name="scanner_malicious">MALICIOUS</string>
+
+    <!-- Threat Log -->
+    <string name="threat_log_total_threats">%d threats blocked</string>
+    <string name="threat_log_empty_state">> No threats detected yet.\n> System operating normally.</string>
+    <string name="threat_log_blocked">BLOCKED</string>
+    <string name="threat_log_monitored">MONITORED</string>
+
+    <!-- Permissions -->
+    <string name="permission_warning">⚠️</string>
+    <string name="accessibility_desc">Required by GoPrivate to automatically scan websites for invasive privacy policies.</string>
+
+</resources>

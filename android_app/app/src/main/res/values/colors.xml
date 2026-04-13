@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cyber Guardian Dark Theme -->
+    <color name="cyber_bg_deep">#000510</color>
+    <color name="cyber_bg_terminal">#0A0F1E</color>
+    <color name="cyber_surface_glass">#1A1F35</color>
+    <color name="cyber_card_glass">#252A45</color>
+
+    <!-- Electric Neon Accents -->
+    <color name="neon_cyan_primary">#00F5FF</color>
+    <color name="neon_cyan_glow">#4000F5FF</color>
+    <color name="neon_green_primary">#00FF9D</color>
+    <color name="neon_green_glow">#4000FF9D</color>
+    <color name="neon_purple_primary">#B72AFF</color>
+    <color name="neon_purple_glow">#40B72AFF</color>
+    <color name="alert_red_primary">#FF2D55</color>
+    <color name="alert_red_glow">#40FF2D55</color>
+    <color name="warning_orange">#FF9D00</color>
+
+    <!-- Terminal Text -->
+    <color name="terminal_text_primary">#E0F7FF</color>
+    <color name="terminal_text_secondary">#8BA3B8</color>
+    <color name="terminal_text_dim">#4A5A70</color>
+    <color name="terminal_cursor">#00FF9D</color>
+
+    <!-- Scan Line Effects -->
+    <color name="scan_line">#1AFFFFFF</color>
+    <color name="scan_line_glow">#0AFFFFFF</color>
+
+    <!-- Holographic Overlay -->
+    <color name="hologram_overlay">#0DFFFFFF</color>
+    <color name="hologram_border">#3300F5FF</color>
+
+    <!-- Status Indicators -->
+    <color name="status_protected">#00FF9D</color>
+    <color name="status_monitoring">#00F5FF</color>
+    <color name="status_threat">#FF2D55</color>
+    <color name="status_critical">#FF003C</color>
+
+    <!-- Light Theme Variants -->
+    <color name="cyber_bg_light">#F8FAFC</color>
+    <color name="cyber_surface_light">#FFFFFF</color>
+    <color name="cyber_card_light">#F1F5F9</color>
+    <color name="terminal_text_primary_light">#0F172A</color>
+    <color name="terminal_text_secondary_light">#475569</color>
+    <color name="neon_cyan_primary_light">#008B9D</color>
+    <color name="neon_green_primary_light">#008B5D</color>
+    <color name="alert_red_primary_light">#CC0033</color>
+
+    <color name="terminal_bg">#0A0A0E</color>
+
+    <color name="status_safe">#00E676</color>
+    <color name="status_suspicious">#FFEA00</color>
+    <color name="status_malicious">#FF1744</color>
+    <color name="matrix_green">#00FF41</color>
+    <color name="cyan_glow">#4000E5FF</color>
+
+    <!-- Binary Pattern Colors -->
+    <color name="binary_digit">#1A00F5FF</color>
+    <color name="binary_digit_dim">#0A00F5FF</color>
+</resources>

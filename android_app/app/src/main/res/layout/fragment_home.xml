@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context=".ui.fragments.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/main_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:padding="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp">
+
+            <com.goprivate.app.ui.views.GlitchTextView
+                android:id="@+id/terminal_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="root@goprivate:~$ ./monitor_sys.sh"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/neon_green_primary"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.05"
+                app:glitchEnabled="true"
+                app:glitchIntensity="low"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/system_status_sub"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="[ SYSTEM ACTIVE - VPN TUNNEL SECURE ]"
+                android:textSize="11sp"
+                android:textColor="@color/terminal_text_secondary"
+                android:fontFamily="monospace"
+                app:layout_constraintTop_toBottomOf="@id/terminal_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.goprivate.app.ui.views.CyberRadarView
+                android:id="@+id/cyber_radar"
+                android:layout_width="0dp"
+                android:layout_height="240dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/system_status_sub"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.goprivate.app.ui.views.HolographicCard
+                android:id="@+id/stats_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:hologramIntensity="2"
+                app:glowColor="@color/neon_cyan_glow"
+                app:cardBackgroundColor="@color/cyber_card_glass"
+                app:cardCornerRadius="6dp"
+                app:strokeColor="#333333"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cyber_radar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/lbl_apps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="APPS_SCANNED"
+                        android:textSize="10sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/apps_scanned_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="142"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/terminal_text_primary"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toBottomOf="@id/lbl_apps"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/lbl_threats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="THREATS_BLOCKED"
+                        android:textSize="10sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/guideline_v" />
+
+                    <com.goprivate.app.ui.views.GlitchTextView
+                        android:id="@+id/threats_blocked_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/alert_red_primary"
+                        android:fontFamily="monospace"
+                        app:glitchEnabled="true"
+                        app:glitchIntensity="high"
+                        app:layout_constraintTop_toBottomOf="@id/lbl_threats"
+                        app:layout_constraintStart_toStartOf="@+id/guideline_v" />
+
+                    <TextView
+                        android:id="@+id/lbl_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="DATA_INSPECTED"
+                        android:textSize="10sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toBottomOf="@id/apps_scanned_count"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/network_protected_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="1.2 MB"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neon_cyan_primary"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toBottomOf="@id/lbl_data"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/lbl_pkt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="LIVE_PKT_RATE"
+                        android:textSize="10sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toBottomOf="@id/threats_blocked_count"
+                        app:layout_constraintStart_toStartOf="@+id/guideline_v" />
+
+                    <TextView
+                        android:id="@+id/packet_rate_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="240 p/s"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neon_green_primary"
+                        android:fontFamily="monospace"
+                        app:layout_constraintTop_toBottomOf="@id/lbl_pkt"
+                        app:layout_constraintStart_toStartOf="@+id/guideline_v" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline_v"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.goprivate.app.ui.views.HolographicCard>
+
+            <com.goprivate.app.ui.views.HolographicCard
+                android:id="@+id/graph_card"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="16dp"
+                app:hologramIntensity="1"
+                app:glowColor="@color/neon_cyan_glow"
+                app:cardBackgroundColor="@color/cyber_card_glass"
+                app:cardCornerRadius="6dp"
+                app:strokeColor="#333333"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/stats_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--- NETWORK_I/O_TELEMETRY ---"
+                        android:textSize="11sp"
+                        android:textColor="@color/terminal_text_secondary"
+                        android:fontFamily="monospace"
+                        android:layout_marginBottom="12dp" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/network_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </com.goprivate.app.ui.views.HolographicCard>
+
+            <com.goprivate.app.ui.views.HolographicCard
+                android:id="@+id/log_card"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="16dp"
+                app:hologramIntensity="1"
+                app:glowColor="@color/neon_cyan_glow"
+                app:cardBackgroundColor="#0A0A0A"
+                app:cardCornerRadius="6dp"
+                app:strokeColor="@color/neon_cyan_primary"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/graph_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="tail -f /var/log/goprivate_ml.log"
+                        android:textSize="11sp"
+                        android:textColor="@color/neon_green_primary"
+                        android:fontFamily="monospace"
+                        android:background="#121212"
+                        android:padding="8dp" />
+
+                    <ScrollView
+                        android:id="@+id/log_scroll_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#0A0A0A"
+                        android:padding="8dp"
+                        android:nestedScrollingEnabled="true"
+                        android:fadeScrollbars="false"
+                        android:requiresFadingEdge="vertical">
+
+                        <com.goprivate.app.ui.views.TerminalTextView
+                            android:id="@+id/terminal_output"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="[10:42:01] Engine A: Packet size 1500 analyzed.\n[10:42:03] VPN: TCP Flow routed."
+                            android:textColor="@color/terminal_text_secondary"
+                            android:textSize="10sp"
+                            android:fontFamily="monospace"
+                            android:lineSpacingExtra="2dp"
+                            app:typewriterEnabled="true"
+                            app:cursorColor="@color/terminal_cursor" />
+                    </ScrollView>
+                </LinearLayout>
+            </com.goprivate.app.ui.views.HolographicCard>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

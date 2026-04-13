@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:strokeColor="@color/alert_red_primary"
+    app:strokeWidth="1dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:background="#0A0A0A">
+
+        <View
+            android:id="@+id/threat_type_icon"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@color/alert_red_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/threat_app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            tools:text="com.evil.tracker"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/threat_type_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/threat_risk_score" />
+
+        <TextView
+            android:id="@+id/threat_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Data Exfiltration"
+            android:textColor="@color/terminal_text_secondary"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@id/threat_app_name"
+            app:layout_constraintTop_toBottomOf="@id/threat_app_name"
+            app:layout_constraintEnd_toStartOf="@id/threat_risk_score" />
+
+        <TextView
+            android:id="@+id/threat_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="[ SYSTEM INTERCEPT ]"
+            android:textColor="@color/alert_red_primary"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@id/threat_type"
+            app:layout_constraintTop_toBottomOf="@id/threat_type" />
+
+        <TextView
+            android:id="@+id/threat_risk_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="92%"
+            android:textColor="@color/alert_red_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/threat_timestamp" />
+
+        <TextView
+            android:id="@+id/threat_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2h ago"
+            android:textColor="@color/terminal_text_dim"
+            android:textSize="9sp"
+            android:fontFamily="monospace"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

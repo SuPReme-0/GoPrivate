@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_xs">10sp</dimen>
+    <dimen name="text_size_sm">12sp</dimen>
+    <dimen name="text_size_md">14sp</dimen>
+    <dimen name="text_size_lg">16sp</dimen>
+    <dimen name="text_size_xl">18sp</dimen>
+    <dimen name="text_size_xxl">24sp</dimen>
+    <dimen name="text_size_xxx_large">32sp</dimen>
+
+    <!-- Card Dimensions -->
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
+    <dimen name="card_stroke_width">1dp</dimen>
+
+    <!-- Chart & Radar Dimensions -->
+    <dimen name="chart_height">240dp</dimen>
+    <dimen name="radar_height">240dp</dimen>
+    <dimen name="radar_particle_size">6dp</dimen>
+    <dimen name="radar_center_size">24dp</dimen>
+
+    <!-- Button Dimensions -->
+    <dimen name="btn_padding_horizontal">24dp</dimen>
+    <dimen name="btn_padding_vertical">12dp</dimen>
+    <dimen name="btn_corner_radius">12dp</dimen>
+    <dimen name="btn_elevation">4dp</dimen>
+
+    <!-- FAB Dimensions -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
+
+    <!-- Navigation -->
+    <dimen name="nav_height">56dp</dimen>
+    <dimen name="nav_icon_size">24dp</dimen>
+    <dimen name="nav_text_size">12sp</dimen>
+
+    <!-- Terminal Log -->
+    <dimen name="terminal_log_height">120dp</dimen>
+    <dimen name="terminal_text_padding">4dp</dimen>
+    <dimen name="terminal_cursor_width">2dp</dimen>
+
+    <!-- Threat Ticker -->
+    <dimen name="threat_item_padding_vertical">12dp</dimen>
+    <dimen name="threat_item_padding_horizontal">16dp</dimen>
+    <dimen name="threat_icon_size">32dp</dimen>
+    <dimen name="threat_score_text_size">17sp</dimen>
+</resources>

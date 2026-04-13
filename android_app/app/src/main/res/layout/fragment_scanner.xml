@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="16dp"
+    android:clipToPadding="false">
+
+    <com.goprivate.app.ui.views.GlitchTextView
+        android:id="@+id/scanner_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=">_ ENDPOINT_AUDIT_PROTOCOL"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/neon_cyan_primary"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.05"
+        app:glitchEnabled="true"
+        app:glitchIntensity="low"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:boxBackgroundColor="@color/cyber_card_glass"
+        app:boxStrokeColor="@color/neon_cyan_primary"
+        app:startIconDrawable="@android:drawable/ic_menu_search"
+        app:startIconTint="@color/neon_cyan_primary"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@id/scanner_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search your System"
+            android:textColor="@color/terminal_text_primary"
+            android:textColorHint="@color/terminal_text_secondary"
+            android:fontFamily="monospace"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/action_buttons_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintTop_toBottomOf="@id/search_input_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scan_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="FULL AUDIT"
+            android:textColor="@color/cyber_bg_deep"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            app:backgroundTint="@color/neon_cyan_primary"
+            app:cornerRadius="4dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/export_report_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:text="EXPORT LOG"
+            android:textColor="@color/neon_cyan_primary"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            app:backgroundTint="#121212"
+            app:strokeColor="@color/neon_cyan_primary"
+            app:strokeWidth="1dp"
+            app:cornerRadius="4dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/refresh_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="RELOAD DB"
+            android:textColor="@color/terminal_text_secondary"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            app:backgroundTint="#0A0A0A"
+            app:strokeColor="#333333"
+            app:strokeWidth="1dp"
+            app:cornerRadius="4dp" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/console_hud_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="#0A0A0A"
+        app:cardCornerRadius="6dp"
+        app:strokeColor="#333333"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/action_buttons_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/scan_progress_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                app:indicatorColor="@color/neon_cyan_primary"
+                app:trackColor="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/scan_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="8dp"
+                android:text="[ SYSTEM STANDBY ]"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/neon_cyan_primary"
+                android:fontFamily="monospace" />
+
+            <ScrollView
+                android:id="@+id/terminal_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:background="#121212"
+                android:padding="8dp"
+                android:fadeScrollbars="false"
+                android:requiresFadingEdge="vertical">
+
+                <TextView
+                    android:id="@+id/terminal_output_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Awaiting Execution Command...\n"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:textSize="10sp"
+                    android:fontFamily="monospace"
+                    android:lineSpacingExtra="2dp" />
+            </ScrollView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/apps_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/console_hud_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.goprivate.app.ui.views.HolographicCard
+        android:id="@+id/details_panel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:elevation="20dp"
+        android:translationZ="20dp"
+        app:hologramIntensity="3"
+        app:glowColor="@color/neon_cyan_glow"
+        app:cardBackgroundColor="#CC050505"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/neon_cyan_primary"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/app_name_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/sideload_tag"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/terminal_text_primary"
+                    android:fontFamily="monospace"
+                    tools:text="Telegram FOSS" />
+
+                <TextView
+                    android:id="@+id/sideload_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="#33FFAA00"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:text="SIDELOAD"
+                    android:textColor="#FFAA00"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/package_name_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/app_name_detail"
+                    android:textSize="10sp"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:fontFamily="monospace"
+                    tools:text="org.telegram.messenger" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginBottom="12dp"
+                android:background="#1A1A1A"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ STATIC ]"
+                        android:textSize="9sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"/>
+                    <com.goprivate.app.ui.views.GlitchTextView
+                        android:id="@+id/trinity_static_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/status_safe"
+                        android:fontFamily="monospace"
+                        tools:text="12%" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ NETWORK ]"
+                        android:textSize="9sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"/>
+                    <TextView
+                        android:id="@+id/trinity_net_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neon_cyan_primary"
+                        android:fontFamily="monospace"
+                        tools:text="CLEAN" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="[ PRIVACY ]"
+                        android:textSize="9sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"/>
+                    <TextView
+                        android:id="@+id/trinity_privacy_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFAA00"
+                        android:fontFamily="monospace"
+                        tools:text="INVASIVE" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginBottom="16dp"
+                android:background="#050505"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/feature_log_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:textSize="10sp"
+                    android:fontFamily="monospace"
+                    android:lineSpacingExtra="2dp"
+                    android:text="> Awaiting XAI Decompilation..." />
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/isolate_button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:text="[ ISOLATE_NET ]"
+                    android:textColor="@color/neon_cyan_primary"
+                    android:textStyle="bold"
+                    android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    app:backgroundTint="#1A1A1A"
+                    app:strokeColor="@color/neon_cyan_primary"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="4dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/uninstall_button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="[ PURGE_APP ]"
+                    android:textColor="@color/cyber_bg_deep"
+                    android:textStyle="bold"
+                    android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    app:backgroundTint="@color/alert_red_primary"
+                    app:cornerRadius="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.goprivate.app.ui.views.HolographicCard>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
