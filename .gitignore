@@ -1,0 +1,108 @@
+# ==============================================================================
+# ROOT LEVEL & PYTHON ENVIRONMENT
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+.venv/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# ==============================================================================
+# ML MODELS & REPORTS (Excluded)
+# ==============================================================================
+# Exclude all model files regardless of where they are
+*.h5
+*.hdf5
+*.pt
+*.pkl
+*.pkl.zip
+*.joblib
+*.onnx
+*.enc
+*.tflite
+*.pb
+*.pb.zip
+
+# Explicitly ignore model directories if you have them at the root
+models/
+saved_models/
+
+# Exclude generated reports
+reports/
+*.pdf
+*.html
+*.csv  # Assuming you don't want to commit large output CSVs. Remove if you do.
+
+# ==============================================================================
+# DATA DIRECTORY RULES
+# ==============================================================================
+# 1. Ignore EVERYTHING inside the data/ folder first...
+data/*
+
+# 2. ...But explicitly un-ignore specific file types inside data/
+!data/*.log
+!data/*.txt
+
+# Note: If you have subdirectories inside data/ (e.g., data/logs/), 
+# and you want .txt files inside them, you need to un-ignore the directories too, like this:
+# !data/*/
+# !data/*/*.log
+# !data/*/*.txt
+
+# ==============================================================================
+# ANDROID STUDIO / APP MODULE (android_app/)
+# ==============================================================================
+# Android specific
+android_app/build/
+android_app/.gradle/
+android_app/local.properties
+android_app/out/
+android_app/.cxx/
+android_app/captures/
+
+# App level build directory
+android_app/app/build/
+
+# Keystore files (NEVER COMMIT THESE)
+*.jks
+*.keystore
+android_app/*.jks
+android_app/*.keystore
+android_app/key.properties
+
+# Google Services (if applicable)
+android_app/app/google-services.json
+
+# C++ / NDK specific (Since you are using native code)
+android_app/.externalNativeBuild/
+android_app/app/.cxx/
+android_app/app/obj/
+android_app/app/libs/  # Only ignore if these are auto-generated. If you manually place .so files here, remove this line.
+
+# CMake generated files
+android_app/CMakeCache.txt
+android_app/CMakeFiles/
+android_app/cmake_install.cmake
+android_app/Makefile
+
+# Lint
+android_app/lint/
+android_app/lint-baseline.xml
