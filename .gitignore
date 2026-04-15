@@ -48,7 +48,6 @@ saved_models/
 # Exclude generated reports
 reports/
 *.pdf
-*.html
 *.csv  
 
 # ==============================================================================
