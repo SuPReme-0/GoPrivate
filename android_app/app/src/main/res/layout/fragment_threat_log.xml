@@ -157,10 +157,10 @@
                         app:chipBackgroundColor="@color/cyber_card_glass" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_critical"
+                        android:id="@+id/filter_malicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CRITICAL_THREATS"
+                        android:text="MALICIOUS"
                         android:textColor="@color/alert_red_primary"
                         android:fontFamily="monospace"
                         app:checkedIconVisible="false"
@@ -169,10 +169,10 @@
                         app:chipStrokeWidth="1dp" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_warnings"
+                        android:id="@+id/filter_suspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="WARNINGS"
+                        android:text="SUSPICIOUS"
                         android:textColor="#FFAA00"
                         android:fontFamily="monospace"
                         app:checkedIconVisible="false"
@@ -181,40 +181,74 @@
                         app:chipStrokeWidth="1dp"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_engine_a"
+                        android:id="@+id/filter_safe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ENG_A [NET]"
+                        android:text="SAFE"
                         android:textColor="@color/neon_cyan_primary"
                         android:fontFamily="monospace"
                         app:checkedIconVisible="false"
-                        app:chipBackgroundColor="@color/cyber_card_glass" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_engine_b"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ENG_B [SYS]"
-                        android:textColor="@color/neon_cyan_primary"
-                        android:fontFamily="monospace"
-                        app:checkedIconVisible="false"
-                        app:chipBackgroundColor="@color/cyber_card_glass" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_engine_c"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ENG_C [NLP]"
-                        android:textColor="@color/neon_cyan_primary"
-                        android:fontFamily="monospace"
-                        app:checkedIconVisible="false"
-                        app:chipBackgroundColor="@color/cyber_card_glass" />
+                        app:chipBackgroundColor="@color/cyber_card_glass"
+                        app:chipStrokeColor="@color/neon_cyan_primary"
+                        app:chipStrokeWidth="1dp"/>
 
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
             <com.goprivate.app.ui.views.HolographicCard
-                android:id="@+id/log_container_card"
+                android:id="@+id/card_engine_a"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:hologramIntensity="1"
+                app:glowColor="@color/neon_cyan_primary"
+                app:cardBackgroundColor="#0A0A0A"
+                app:strokeColor="@color/neon_cyan_primary"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="6dp"
+                app:layout_constraintTop_toBottomOf="@id/filter_scroll_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=">_ [ENG_A] NETWORK_TRAFFIC"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neon_cyan_primary"
+                        android:fontFamily="monospace"
+                        android:padding="8dp"
+                        android:background="#1A00FFFF" />
+
+                    <TextView
+                        android:id="@+id/empty_state_engine_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="[ NO_NETWORK_LOGS ]"
+                        android:textSize="12sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_engine_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
+                        android:nestedScrollingEnabled="false"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </com.goprivate.app.ui.views.HolographicCard>
+
+            <com.goprivate.app.ui.views.HolographicCard
+                android:id="@+id/card_engine_b"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -224,29 +258,97 @@
                 app:strokeColor="@color/alert_red_primary"
                 app:strokeWidth="1dp"
                 app:cardCornerRadius="6dp"
-                app:layout_constraintTop_toBottomOf="@id/filter_scroll_view"
+                app:layout_constraintTop_toBottomOf="@id/card_engine_a"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <TextView
-                    android:id="@+id/empty_state_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:text="[ QUARANTINE_EMPTY ]\nZero hostile signatures detected."
-                    android:textSize="12sp"
-                    android:textColor="@color/terminal_text_dim"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:visibility="gone" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/threat_log_recycler"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="150dp"
-                    android:nestedScrollingEnabled="false"
-                    android:padding="8dp" />
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=">_ [ENG_B] SYSTEM_VANGUARD"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/alert_red_primary"
+                        android:fontFamily="monospace"
+                        android:padding="8dp"
+                        android:background="#1AFF0000" />
+
+                    <TextView
+                        android:id="@+id/empty_state_engine_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="[ NO_PAYLOAD_LOGS ]"
+                        android:textSize="12sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_engine_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
+                        android:nestedScrollingEnabled="false"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </com.goprivate.app.ui.views.HolographicCard>
+
+            <com.goprivate.app.ui.views.HolographicCard
+                android:id="@+id/card_engine_c"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:hologramIntensity="1"
+                app:glowColor="#FFAA00"
+                app:cardBackgroundColor="#0A0A0A"
+                app:strokeColor="#FFAA00"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="6dp"
+                app:layout_constraintTop_toBottomOf="@id/card_engine_b"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=">_ [ENG_C] NLP_SENTINEL"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFAA00"
+                        android:fontFamily="monospace"
+                        android:padding="8dp"
+                        android:background="#1AFFAA00" />
+
+                    <TextView
+                        android:id="@+id/empty_state_engine_c"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="[ NO_POLICY_LOGS ]"
+                        android:textSize="12sp"
+                        android:textColor="@color/terminal_text_dim"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_engine_c"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
+                        android:nestedScrollingEnabled="false"
+                        android:padding="8dp" />
+                </LinearLayout>
             </com.goprivate.app.ui.views.HolographicCard>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -358,7 +460,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="16dp"
                 android:background="#121212"
                 android:padding="8dp">

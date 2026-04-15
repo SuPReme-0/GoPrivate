@@ -10,16 +10,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.goprivate.app.core.TelemetryManager
-import com.goprivate.app.data.ml.EngineANetworkManager
-import com.goprivate.app.data.ml.EngineCNLPManager
 import com.goprivate.app.data.model.DashboardState
 import com.goprivate.app.data.model.NetworkDataPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -28,7 +24,8 @@ import java.util.Locale
 
 /**
  * ViewModel for Home Dashboard.
- * Acts as the "Central Nervous System" connecting ML engines to UI.
+ * Completely decoupled from log generation to prevent Lifecycle Ghosting.
+ * Formats the 1-Hour persistent memory for the UI Terminal.
  */
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -42,9 +39,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(scannedCount = totalScannedReports) }
     }
 
-    // 🚨 MILLISECOND PRECISION CLOCK
-    private val timeFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
-    private fun getTimestamp(): String = timeFormat.format(Date())
+    private val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
 
     init {
         // 1. Initialize Dashboard Statistics
@@ -78,47 +73,35 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        // 3. ENTERPRISE SIEM CYBER TERMINAL INITIALIZATION
-        _uiState.update { currentState ->
-            currentState.copy(
-                terminalLog = listOf(
-                    "[${getTimestamp()}] >_ GoPrivate OS Kernel Initializing...",
-                    "[${getTimestamp()}] >_ Mounting Neural Matrices (Engines A, B, C)...",
-                    "[${getTimestamp()}] >_ Awaiting System Telemetry..."
-                )
-            )
-        }
-
-        // 🚨 ADVANCED TELEMETRY MERGING
+        // 3. 🚨 THE XAI & SYSTEM TERMINAL FORMATTER
+        // Constantly observes the immortal 1-hour memory bank.
         viewModelScope.launch {
+            TelemetryManager.terminalHistoryFlow.collect { history ->
+                val formattedLogs = history.map { entry ->
+                    val timeStr = timeFormat.format(Date(entry.timestamp))
 
-            // Vector 1: Engine C NLP Logs
-            val nlpLogs = EngineCNLPManager.nlpEventsFlow.map { event ->
-                "[${getTimestamp()}] $event"
-            }
-
-            // Vector 2: High-Severity Threat Interceptions (Engine A & B)
-            val threatLogs = TelemetryManager.threatEvents.map { event ->
-                val riskPct = (event.riskScore * 100).toInt()
-                "[${getTimestamp()}] 🚨 CRITICAL_INTERCEPT: [${event.appName}]\n      └─ Vector: ${event.threatType} | Severity: $riskPct%"
-            }
-
-            // Vector 3: Kernel Network Shield Status (Distinct prevents spam)
-            val vpnLogs = EngineANetworkManager.vpnActiveFlow.map { isActive ->
-                if (isActive) {
-                    "[${getTimestamp()}] >_ KERNEL: Network Shield ENGAGED. Traffic routed to Engine A."
-                } else {
-                    "[${getTimestamp()}] >_ KERNEL: Network Shield OFFLINE. System endpoints unprotected."
+                    // 🧠 SURGICAL UI FORMATTING
+                    when (entry.tag) {
+                        "XAI" -> {
+                            // Highlights the multi-line forensic clause extraction
+                            "[$timeStr] \uD83E\uDDE0 [XAI_FORENSIC_ENGINE]\n${entry.message}"
+                        }
+                        "WRN", "CRIT", "ERR" -> {
+                            "[$timeStr] \uD83D\uDEA8 [${entry.tag}] ${entry.message}"
+                        }
+                        "NLP" -> {
+                            "[$timeStr] \uD83D\uDC41️\u200D\uD83D\uDDE8️ [${entry.tag}] ${entry.message}"
+                        }
+                        "INF" -> {
+                            "[$timeStr] ✅ [${entry.tag}] ${entry.message}"
+                        }
+                        else -> {
+                            "[$timeStr] >_ [${entry.tag}] ${entry.message}"
+                        }
+                    }
                 }
-            }
 
-            // Merge all vectors and feed into the UI State
-            merge(nlpLogs, threatLogs, vpnLogs).collect { message ->
-                _uiState.update { currentState ->
-                    // 🚨 Increased log history from 50 to 100 for better SIEM scrolling
-                    val updatedLog = (currentState.terminalLog + message).takeLast(100)
-                    currentState.copy(terminalLog = updatedLog)
-                }
+                _uiState.update { it.copy(terminalLog = formattedLogs) }
             }
         }
     }

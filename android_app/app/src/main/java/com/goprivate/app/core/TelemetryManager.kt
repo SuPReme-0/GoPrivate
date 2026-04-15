@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -26,6 +27,9 @@ data class ThreatEvent(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+// 🚨 1-HOUR PERSISTENT LOG DATA CLASS
+data class TerminalLog(val timestamp: Long, val tag: String, val message: String)
+
 /**
  * Central telemetry manager for all GoPrivate metrics.
  * Thread-safe, reactive, and the source of truth for UI StateFlows.
@@ -41,20 +45,37 @@ object TelemetryManager {
     private val totalThreatsBlocked = AtomicInteger(0)
     private val totalBytesProtected = AtomicLong(0L)
 
-    // 🚨 NEW: The Global Terminal Pipeline
-    private val _liveTerminalLogs = MutableSharedFlow<String>(replay = 50, extraBufferCapacity = 100)
-    val liveTerminalLogs = _liveTerminalLogs.asSharedFlow()
+    // 🚨 IMMORTAL TERMINAL BUFFER (1-Hour Rolling Window)
+    private val _terminalHistoryFlow = MutableStateFlow<List<TerminalLog>>(emptyList())
+    val terminalHistoryFlow: StateFlow<List<TerminalLog>> = _terminalHistoryFlow.asStateFlow()
 
     @SuppressLint("ConstantLocale")
     private val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
 
+    init {
+        // 🚨 BOOT SEQUENCE: Because this is a Singleton, this runs exactly ONCE
+        // per app process launch. No more duplicate ghost logs on the UI!
+        logToTerminal("SYS", "GoPrivate OS Kernel Initializing...")
+        logToTerminal("SYS", "Mounting Neural Matrices (Engines A, B, C)...")
+        logToTerminal("SYS", "Awaiting System Telemetry...")
+    }
+
     /**
-     * Call this from ANYWHERE in the app to print to the Home Screen Terminal.
+     * Call this from ANYWHERE to safely append to the 1-Hour Memory Bank.
      */
     fun logToTerminal(tag: String, message: String) {
-        val time = timeFormat.format(Date())
-        val formattedLog = "[$time] $tag: $message"
-        _liveTerminalLogs.tryEmit(formattedLog)
+        // Keep standard Android logcat working for debugging
+        Log.d(tag, message)
+
+        val entry = TerminalLog(System.currentTimeMillis(), tag, message)
+
+        // Thread-safe atomic update
+        _terminalHistoryFlow.update { current ->
+            val oneHourAgo = System.currentTimeMillis() - 3600_000L // 1 Hour in Milliseconds
+
+            // Appends the new log, and slices off anything older than 1 hour to prevent RAM bloat
+            (current + entry).filter { it.timestamp >= oneHourAgo }
+        }
     }
 
     // === UI STATE FLOWS (Source of Truth) ===
@@ -79,23 +100,15 @@ object TelemetryManager {
 
     // === UPDATE FUNCTIONS (Thread-Safe) ===
 
-    /**
-     * Log that an app was scanned (increments counter + updates flow)
-     */
     fun logAppScanned() {
         val count = totalAppsScanned.incrementAndGet()
         _appsScannedCount.value = count
     }
 
-    /**
-     * Log that packets were routed (updates data protected + calculates packet rate)
-     */
     fun logPacketRouted(bytes: Int) {
-        // 1. Thread-safe data accumulation
         val total = totalBytesProtected.addAndGet(bytes.toLong())
         _dataProtectedMB.value = total / (1024f * 1024f)
 
-        // 2. Calculate real-time packet rate (packets per second)
         currentSecondPackets.incrementAndGet()
         val now = System.currentTimeMillis()
         if (now - lastSecondTime >= 1000) {
@@ -105,31 +118,21 @@ object TelemetryManager {
         }
     }
 
-    /**
-     * Log that a threat was blocked (increments counter + emits event)
-     */
     fun logThreatBlocked(appName: String, threatType: String, riskScore: Float) {
         val count = totalThreatsBlocked.incrementAndGet()
         _threatsBlockedCount.value = count
 
-        // Emit event for Radar visualization and Terminal log
         _threatEvents.tryEmit(ThreatEvent(appName, threatType, riskScore))
         Log.e(TAG, "🚨 THREAT LOGGED: $appName ($threatType) - Score: $riskScore")
     }
 
     // === ANALYTICS & LOGGING ===
 
-    /**
-     * Log NLP analysis event (for terminal display)
-     */
     fun logNLPEvent(label: String, confidence: Float) {
         if (!isTelemetryEnabled) return
         Log.d(TAG, "📊 NLP STATS | Label: $label | Confidence: $confidence%")
     }
 
-    /**
-     * Log generic inference event (for performance monitoring)
-     */
     fun logInference(engineName: String, inferenceTimeMs: Long, riskScore: Float) {
         if (!isTelemetryEnabled) return
         val riskBucket = when {
@@ -142,9 +145,6 @@ object TelemetryManager {
 
     // === PUBLIC GETTERS ===
 
-    /**
-     * Calculate battery saved percentage based on threats blocked
-     */
     fun getBatterySavedPercent(): Int {
         val baseSave = 12
         val extraSave = (totalThreatsBlocked.get() * 2)

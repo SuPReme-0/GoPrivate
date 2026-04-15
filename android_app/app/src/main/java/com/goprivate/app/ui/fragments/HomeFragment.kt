@@ -27,9 +27,11 @@ import com.goprivate.app.core.network.GoPrivateVpnService
 import com.goprivate.app.data.model.NetworkDataPoint
 import com.goprivate.app.databinding.FragmentHomeBinding
 import com.goprivate.app.ui.viewmodels.HomeViewModel
+import com.goprivate.app.ui.viewmodels.HomeViewModelFactory
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import java.net.NetworkInterface
+import java.util.Locale
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -39,7 +41,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HomeViewModel by viewModels()
+    // 🚨 FACTORY FIX: Properly injects the Application context into the ViewModel
+    private val viewModel: HomeViewModel by viewModels {
+        HomeViewModelFactory(requireActivity().application)
+    }
+
     private var isVpnActive = false
 
     // Hardware clock debounce
@@ -65,18 +71,15 @@ class HomeFragment : Fragment() {
         setupUI()
         setupChart()
         observeViewModel()
-        observeLiveTerminal()
     }
 
     override fun onResume() {
         super.onResume()
-        // Cancel any previous sync job to avoid overlapping
         resumeSyncJob?.cancel()
         resumeSyncJob = lifecycleScope.launch(Dispatchers.IO) {
             val alive = isTunnelAlive()
             withContext(Dispatchers.Main) {
                 if (!isAdded || lifecycle.currentState != Lifecycle.State.RESUMED) return@withContext
-                // Don't interfere if we are inside debounce window
                 if (SystemClock.elapsedRealtime() - lastClickTime < DEBOUNCE_MS) return@withContext
                 if (isVpnActive != alive) {
                     TelemetryManager.logToTerminal("SYS", "Resync: VPN state = $alive")
@@ -88,23 +91,16 @@ class HomeFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        // Cancel ongoing kernel monitor to avoid work when not visible
         kernelMonitorJob?.cancel()
         resumeSyncJob?.cancel()
     }
 
-    /**
-     * Thread‑safe, timeout‑enforced kernel check.
-     * Must be called from a coroutine (Dispatchers.IO recommended).
-     */
     private suspend fun isTunnelAlive(): Boolean = withContext(Dispatchers.IO) {
         try {
             withTimeoutOrNull(2000L) {
                 val future = tunnelCheckExecutor.submit(Callable {
                     try {
-                        val interfaces =
-                            NetworkInterface.getNetworkInterfaces() ?: return@Callable false
-                        // Convert Enumeration to Sequence and check condition
+                        val interfaces = NetworkInterface.getNetworkInterfaces() ?: return@Callable false
                         interfaces.asSequence().any { netInterface ->
                             netInterface.isUp && (netInterface.name == "tun0" || netInterface.name == "ppp0")
                         }
@@ -118,10 +114,10 @@ class HomeFragment : Fragment() {
             false
         }
     }
+
     @SuppressLint("SetTextI18n")
     private fun setupUI() {
         binding.cyberRadar.setOnClickListener {
-            // Guard: fragment not ready or already disabled
             if (!isAdded || lifecycle.currentState != Lifecycle.State.RESUMED) return@setOnClickListener
             if (!binding.cyberRadar.isEnabled) return@setOnClickListener
 
@@ -134,7 +130,6 @@ class HomeFragment : Fragment() {
             binding.cyberRadar.isEnabled = false
 
             if (isVpnActive) {
-                // Shutdown
                 updateVpnUiState(active = false, isTransition = true)
                 TelemetryManager.logToTerminal("SYS", "Severing hardline...")
                 try {
@@ -147,7 +142,6 @@ class HomeFragment : Fragment() {
                 }
                 scheduleKernelPoll(targetActive = false)
             } else {
-                // Startup
                 updateVpnUiState(active = true, isTransition = true)
                 TelemetryManager.logToTerminal("SYS", "Ignition sequence...")
                 try {
@@ -184,15 +178,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    /**
-     * Polls the kernel until the desired tunnel state is reached, then unlocks the UI.
-     * Uses a timeout (8 seconds) to avoid indefinite waiting.
-     */
     private fun scheduleKernelPoll(targetActive: Boolean) {
         kernelMonitorJob?.cancel()
         kernelMonitorJob = lifecycleScope.launch(Dispatchers.IO) {
-            delay(300) // brief settle time
-            for (i in 0 until 32) { // 8 seconds max (32 * 250ms)
+            delay(300)
+            for (i in 0 until 32) {
                 if (!isAdded || lifecycle.currentState != Lifecycle.State.RESUMED) break
                 if (isTunnelAlive() == targetActive) {
                     withContext(Dispatchers.Main) {
@@ -206,7 +196,6 @@ class HomeFragment : Fragment() {
                 }
                 delay(250)
             }
-            // Timeout fallback: force sync to current kernel state
             val finalState = isTunnelAlive()
             withContext(Dispatchers.Main) {
                 if (isAdded) {
@@ -237,8 +226,9 @@ class HomeFragment : Fragment() {
             binding.systemStatusSub.text = "[ SYSTEM STANDBY - TUNNEL OFFLINE ]"
             binding.systemStatusSub.setTextColor(ContextCompat.getColor(requireContext(), R.color.terminal_text_secondary))
             binding.packetRateCount.text = "0 p/s"
-            // Clear the chart when VPN is off
-            updateChart(emptyList())
+
+            // 🚨 EXPLICIT TYPE FIX: Empty list type explicitly declared
+            updateChart(emptyList<NetworkDataPoint>())
         }
     }
 
@@ -261,7 +251,8 @@ class HomeFragment : Fragment() {
             setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.terminal_text_dim))
         }
 
-        val dataSet = LineDataSet(emptyList(), "Packets/sec").apply {
+        // 🚨 EXPLICIT TYPE FIX: Empty list type explicitly declared
+        val dataSet = LineDataSet(emptyList<Entry>(), "Packets/sec").apply {
             val cyberBlue = ContextCompat.getColor(requireContext(), R.color.neon_cyan_primary)
             color = cyberBlue
             setCircleColor(cyberBlue)
@@ -277,15 +268,18 @@ class HomeFragment : Fragment() {
         chart.invalidate()
     }
 
-    @SuppressLint("SetTextI18n", "DefaultLocale")
+    @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { state ->
+
+                    // 1. Update Core HUD Stats
                     binding.appsScannedCount.text = state.scannedCount.toString()
                     binding.threatsBlockedCount.text = state.blockedCount.toString()
-                    binding.networkProtectedCount.text = String.format("%.1f MB", state.protectedMb)
+                    binding.networkProtectedCount.text = String.format(Locale.getDefault(), "%.1f MB", state.protectedMb)
 
+                    // 2. Update Network Rate and Chart
                     val inTransition = SystemClock.elapsedRealtime() - lastClickTime < DEBOUNCE_MS
                     if (isVpnActive && !inTransition && binding.cyberRadar.isEnabled) {
                         binding.packetRateCount.text = "${state.packetRate.toInt()} p/s"
@@ -293,22 +287,17 @@ class HomeFragment : Fragment() {
                     } else if (!isVpnActive) {
                         binding.packetRateCount.text = "0 p/s"
                     }
-                }
-            }
-        }
-    }
 
-    private fun observeLiveTerminal() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                TelemetryManager.liveTerminalLogs.collectLatest { logMessage ->
-                    val current = binding.terminalOutput.text.toString()
-                    val lines = current.split("\n")
-                    val kept = if (lines.size > 50) lines.takeLast(50) else lines
-                    val newText = kept.joinToString("\n") + "\n" + logMessage
-                    binding.terminalOutput.text = newText
-                    binding.logScrollView.post {
-                        binding.logScrollView.fullScroll(ScrollView.FOCUS_DOWN)
+                    // 3. 🚨 1-HOUR IMMORTAL TERMINAL SYNC
+                    // Takes the pre-formatted logs directly from the ViewModel's memory bank
+                    val newTerminalText = state.terminalLog.joinToString("\n")
+                    if (binding.terminalOutput.text.toString() != newTerminalText) {
+                        binding.terminalOutput.text = newTerminalText
+
+                        // Auto-scroll to the newest event
+                        binding.logScrollView.post {
+                            binding.logScrollView.fullScroll(ScrollView.FOCUS_DOWN)
+                        }
                     }
                 }
             }
