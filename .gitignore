@@ -49,7 +49,7 @@ saved_models/
 reports/
 *.pdf
 *.html
-*.csv  # Assuming you don't want to commit large output CSVs. Remove if you do.
+*.csv  
 
 # ==============================================================================
 # DATA DIRECTORY RULES
@@ -60,12 +60,6 @@ data/*
 # 2. ...But explicitly un-ignore specific file types inside data/
 !data/*.log
 !data/*.txt
-
-# Note: If you have subdirectories inside data/ (e.g., data/logs/), 
-# and you want .txt files inside them, you need to un-ignore the directories too, like this:
-# !data/*/
-# !data/*/*.log
-# !data/*/*.txt
 
 # ==============================================================================
 # ANDROID STUDIO / APP MODULE (android_app/)
@@ -95,7 +89,7 @@ android_app/app/google-services.json
 android_app/.externalNativeBuild/
 android_app/app/.cxx/
 android_app/app/obj/
-android_app/app/libs/  # Only ignore if these are auto-generated. If you manually place .so files here, remove this line.
+android_app/app/libs/  
 
 # CMake generated files
 android_app/CMakeCache.txt
@@ -106,3 +100,10 @@ android_app/Makefile
 # Lint
 android_app/lint/
 android_app/lint-baseline.xml
+
+# ==============================================================================
+# LARGE BINARIES / RELEASES (THE FIX)
+# ==============================================================================
+*.apk
+*.aab
+android_app/app/release/

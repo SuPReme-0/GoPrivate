@@ -20,15 +20,12 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags += "-std=c++17"
-                // 🚨 ADD THIS: Ensures C++ is built for all common phone architectures
+                // 🚨 Ensures C++ is built for all common phone architectures
                 abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
             }
         }
 
-        // 🚨 ADD THIS: Required for Room to export schemas (helps with migrations)
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
+        // ❌ REMOVED the ksp block from here. It was in the wrong scope!
     }
 
     externalNativeBuild {
@@ -79,6 +76,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+}
+
+// ✅ ADDED HERE: KSP must sit at the top-level of the Gradle file, outside the 'android' block.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {

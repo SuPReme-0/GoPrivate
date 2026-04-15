@@ -3,10 +3,11 @@
 # ---------------------------------------------------------------------------
 
 # === 🚨 CRITICAL: THE C++ JNI BRIDGE (Do NOT Touch) ===
-# These must match the C++ signatures exactly or the VPN will blackhole.
+# FIX: Using the (...) wildcard ensures R8 matches the Kotlin bytecode perfectly
+# without failing on nullability annotations or primitive boxing.
 -keep class com.goprivate.app.core.network.GoPrivateVpnService {
-    public boolean onNativePacketIntercepted(java.lang.String, java.lang.String, int, int, int, int, int);
-    public boolean protectNativeSocket(int);
+    public boolean onNativePacketIntercepted(...);
+    public boolean protectNativeSocket(...);
     native <methods>;
 }
 
@@ -22,8 +23,8 @@
 -keep class com.goprivate.app.core.FeatureHelper { *; }
 
 # === 🧬 VIEWMODELS (Reflection Protection) ===
-# Prevents ViewModelProvider from failing to instantiate your logic
--keep class * extends androidx.lifecycle.ViewModel {
+# FIX: Changed to -keepclassmembers. Prevents ViewModelProvider from failing.
+-keepclassmembers class * extends androidx.lifecycle.ViewModel {
     public <init>(...);
 }
 -keep class com.goprivate.app.ui.viewmodels.** { *; }
@@ -73,3 +74,11 @@
 
 # JNI Helper Classes used in netguard.c
 -keep class com.goprivate.app.core.network.ReusablePacketInfo { *; }
+# ---------------------------------------------------------------------------
+# 🛠️ OKIO & JAVAX ANNOTATION FIX
+# Tells R8 to ignore missing metadata classes that don't affect runtime
+# ---------------------------------------------------------------------------
+-dontwarn javax.annotation.**
+-keepattributes *Annotation*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**

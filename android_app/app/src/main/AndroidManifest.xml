@@ -68,16 +68,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".core.AppInstallReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
         <service
             android:name=".core.sensors.PrivacyAuditorService"
             android:exported="true"
